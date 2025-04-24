@@ -16,7 +16,7 @@ export default function SearchBar({ searchQuery, setSearchQuery }: SearchBarProp
           onChange={(e) => setSearchQuery(e.target.value)}
           className="max-w-md"
         />
-        <Button variant="outline">Sort by</Button>
+        <Button variant="outline">Search</Button>
       </div>
     );
   }

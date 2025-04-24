@@ -1,50 +1,52 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CategorySidebar from "./Category";
 import SearchBar from "./Search";
 import CardGrid from "./CardGrid";
+import { useSearchParams, useRouter } from "next/navigation";
 
 const cards = [
   {
     title: "Stripe",
-    author: "by Stripe, Inc.",
     description:
       "Interact with the Stripe API. This server supports various tools to interact with different Stripe servi...",
     stars: "34,607",
+    tags: ["Stripe", "API", "Payment"],
+    serverid: "stripe",
   },
   {
     title: "Firecrawl",
-    author: "by SideGuide Technologies",
     description:
       "A Model Context Protocol (MCP) server implementation that integrates with Firecrawl for web...",
     stars: "34,607",
-  },
-  {
-    title: "browserbase",
-    author: "by Browserbase Inc.",
-    description:
-      "Automate browser interactions in the cloud (e.g. web navigation, data extraction, form filling, and...",
-    stars: "34,607",
-  },
-  {
-    title: "gitlab-ref",
-    author: "by Anthropic, PBC",
-    description:
-      "GitLab project access and management. A Model Context Protocol reference server.",
-    stars: "34,607",
+    tags: ["Web", "Crawling", "MCP"],
+    serverid: "firecrawl",
   },
 ];
 
 export default function MCPRegistry() {
     const [selectedCategory, setSelectedCategory] = useState("All servers");
     const [searchQuery, setSearchQuery] = useState("");
+
+    const router = useRouter();
+    const searchParams = useSearchParams();
+  
+    useEffect(() => {
+      const params = new URLSearchParams(searchParams);
+      if (selectedCategory !== "All servers") {
+        params.set("category", selectedCategory);
+      } else {
+        params.delete("category");
+      }
+      router.push(`?${params.toString()}`);
+    }, [selectedCategory, router, searchParams]);
   
     const filteredCards = cards.filter((card) =>
       card.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   
     return (
-      <div className="flex min-h-screen p-6 bg-gray-50">
+      <div className="flex flex-col sm:flex-row min-h-screen p-6 gap-6">
         <CategorySidebar
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
