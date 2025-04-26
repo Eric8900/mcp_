@@ -3,7 +3,7 @@ import { NavbarMain } from "@/components/Navbar";
 
 export default function Home() {
   return (
-    <div className="mt-[1%]">
+    <div>
       <NavbarMain fixed={true}/> 
       <Form />
     </div>

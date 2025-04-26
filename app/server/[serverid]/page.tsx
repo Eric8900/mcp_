@@ -7,12 +7,12 @@ import { useParams } from 'next/navigation';
 
 const ServerPage = () => {
   const params = useParams();
-  const serverid = params.serverid as string;
+  const searchid = params.serverid as string;
 
   return (
     <>
       <NavbarMain/>
-      <Content serverid={serverid}/> 
+      <Content serverid={searchid}/> 
     </>
   );
 };

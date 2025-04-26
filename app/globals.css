@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+@import "github-markdown-css/github-markdown-light.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -118,5 +120,9 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  ::selection {
+    color: black;
+    background-color: #13E299;
   }
 }
