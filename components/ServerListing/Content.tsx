@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { ChevronLeft, TagIcon } from 'lucide-react';
+import { ChevronLeft, LoaderCircle, TagIcon } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { Server, getServerBySearchId } from '@/lib/actions';
@@ -36,11 +36,13 @@ function Content({ serverid }: ContentProps) {
     }, [serverid]);
 
     if (loading) {
-        return <div className="relative w-full bg-white mt-[10vh]">Loading...</div>;
+        return <div className="relative flex justify-center items-center p-6 gap-6 h-[60vh] mt-[10vh]">
+            <LoaderCircle className="animate-spin text-gray-500" size={100} />
+        </div>;
     }
 
     if (!server) {
-        return <div className="relative w-full bg-white mt-[10vh]">Server not found</div>;
+        return <div className="relative flex justify-center items-center p-6 gap-6 h-[60vh] mt-[10vh]">Server not found</div>;
     }
 
     return (
@@ -110,9 +112,9 @@ function Content({ serverid }: ContentProps) {
                     <div className="lg:w-2/3 lg:border-l lg:px-10">
                         <div className="max-w-none prose prose-emerald dark:prose-invert prose-a:text-primary! prose-a:no-underline prose-a:hover:text-secondary! [&_.code-line]:text-black!">
                             {readme ? (
-                            <MarkdownPreview 
-                            wrapperElement={{"data-color-mode": "light"}} 
-                            source={readme} />
+                                <MarkdownPreview
+                                    wrapperElement={{ "data-color-mode": "light" }}
+                                    source={readme} />
                             ) : (
                                 <div className="text-gray-500 italic">
                                     No documentation available
