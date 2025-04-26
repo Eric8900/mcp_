@@ -1,3 +1,4 @@
+'use client'
 import Form from "@/components/AddServer/Form";
 import { NavbarMain } from "@/components/Navbar";
 
