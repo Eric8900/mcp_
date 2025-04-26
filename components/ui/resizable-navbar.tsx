@@ -244,7 +244,10 @@ export const NavbarLogo = () => {
         width={30}
         height={30}
       /> */}
-      <span className="text-black dark:text-white font-extrabold text-2xl">MCP_</span>
+      <span className="text-black dark:text-white font-extrabold text-2xl">
+        MCP
+        <span className="text-primary">_</span>
+        </span>
     </Link>
   );
 };

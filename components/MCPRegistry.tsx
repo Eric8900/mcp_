@@ -17,20 +17,22 @@ export default function MCPRegistry() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const fetchServers = useCallback(async (pageNum: number) => {
+  const fetchServers = useCallback(async (pageNum: number, searchTerm = "", category = "All servers") => {
     setLoading(true);
-    const fetchedServers = await getNextServers(pageNum);
-    if (fetchedServers.length === 0) {
-      setHasMore(false);
+    const fetchedServers = await getNextServers(pageNum, searchTerm, category);
+    if (pageNum === 0) {
+      setServers(fetchedServers);
     } else {
       setServers(prev => [...prev, ...fetchedServers]);
     }
+    setHasMore(fetchedServers.length > 0);
     setLoading(false);
-  }, []);
+  }, []);  
 
   useEffect(() => {
-    fetchServers(0);
-  }, [fetchServers]);
+    fetchServers(0, searchQuery, selectedCategory);
+    setPage(0);
+  }, [searchQuery, selectedCategory, fetchServers]);  
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
@@ -59,14 +61,6 @@ export default function MCPRegistry() {
     }
   }, [page, fetchServers]);
 
-  const filteredServers = servers.filter(server => {
-    const matchesSearch = server.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      server.description?.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === "All servers" ||
-      server.tags?.includes(selectedCategory);
-    return matchesSearch && matchesCategory;
-  });
-
   return (
     <div className="flex flex-col sm:flex-row min-h-screen p-6 gap-6">
       <CategorySidebar
@@ -75,7 +69,7 @@ export default function MCPRegistry() {
       />
       <div className="flex-1">
         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-        <CardGrid cards={filteredServers} loading={loading}/>
+        <CardGrid cards={servers} loading={loading}/>
         {!hasMore && <div className="text-center py-4">You&apos;ve reached the end!</div>}
       </div>
     </div>

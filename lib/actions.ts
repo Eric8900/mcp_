@@ -27,12 +27,29 @@ export async function getServerBySearchId(searchid: string): Promise<Server | nu
     return data;
 }
 
-export async function getNextServers(startFrom: number): Promise<Server[]> {
-    const { data, error } = await supabase
+export async function getNextServers(
+    startFrom: number,
+    searchQuery?: string,
+    selectedCategory?: string
+): Promise<Server[]> {
+    let query = supabase
         .from('mcp_servers')
         .select('id, title, logo_url, stars, description, tags, search_id')
-        .range(startFrom, startFrom + 19)
         .order('id', { ascending: true });
+
+    if (searchQuery) {
+        query = query.or(`title.ilike.%${searchQuery}%,description.ilike.%${searchQuery}%`);
+    }
+
+    const validCategories = ["analyticsdata", "aimachinelearning", "crm", "devtools", "filemanagement", "communication", "collaboration", "fintech"];
+
+    if (selectedCategory && validCategories.includes(selectedCategory)) {
+        query = query.contains('tags', JSON.stringify([selectedCategory]));
+    }
+
+    query = query.range(startFrom, startFrom + 19);
+
+    const { data, error } = await query;
 
     if (error) {
         console.error('Error fetching servers:', error);
