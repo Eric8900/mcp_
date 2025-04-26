@@ -108,7 +108,7 @@ function Content({ serverid }: ContentProps) {
 
                     {/* Right content area */}
                     <div className="lg:w-2/3 lg:border-l lg:px-10">
-                        <div className="max-w-none prose prose-emerald dark:prose-invert prose-a:text-[#0B8C5E]! prose-a:no-underline prose-a:hover:text-[#13E299]! [&_.code-line]:text-black!">
+                        <div className="max-w-none prose prose-emerald dark:prose-invert prose-a:text-primary! prose-a:no-underline prose-a:hover:text-secondary! [&_.code-line]:text-black!">
                             {readme ? (
                             <MarkdownPreview 
                             wrapperElement={{"data-color-mode": "light"}} 

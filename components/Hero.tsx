@@ -17,7 +17,7 @@ export default function Hero() {
       {/* Radial gradient for the container to give a faded look */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div>
       <p className="relative z-20 py-8 text-5xl font-bold sm:text-7xl">
-        MCP Servers, <br /><b>in <span className="from-primary to-secondary bg-clip-text bg-gradient-to-r text-transparent ">one</span> place</b>
+        MCP Servers, <br /><b>in <span className="from-secondary to-primary bg-clip-text bg-gradient-to-r text-transparent ">one</span> place</b>
         <span className="font-overusedGrotesk"></span>
       </p>
     </div>

@@ -14,8 +14,44 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "mcp_",
-  description: "MCP Registry",
+  title: {
+    default: "MCP_",
+    template: "%s | MCP_",
+  },
+  description: "Explore the registry of Model Context Protocol (MCP) servers built for Claude, Cline, Cursor, Windsurf, and more. Turn AI LLMs into efficient agents with MCP servers.",
+  metadataBase: new URL("https://mcpw.vercel.app"),
+  openGraph: {
+    title: "MCP_",
+    description: "Explore the registry of Model Context Protocol (MCP) servers built for Claude, Cline, Cursor, Windsurf, and more. Turn AI LLMs into efficient agents with MCP servers.",
+    url: "https://mcpw.vercel.app",
+    siteName: "MCP_",
+    images: [
+      {
+        url: "https://mcpw.vercel.app/mcp-og-image.png",
+        width: 1000,
+        height: 640,
+        alt: "MCP_ - Model Context Protocol Registry",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MCP_",
+    description: "Explore the registry of Model Context Protocol (MCP) servers built for Claude, Cline, Cursor, Windsurf, and more. Turn AI LLMs into efficient agents with MCP servers.",
+    images: ["https://mcpw.vercel.app/mcp-og-image.png"],
+    creator: "@ericchen890",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+  themeColor: "#0B8C5E",
+  other: {
+    "theme-color": "#0B8C5E",
+  },
 };
 
 export default function RootLayout({

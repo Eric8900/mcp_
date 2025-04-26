@@ -246,7 +246,7 @@ export const NavbarLogo = () => {
       /> */}
       <span className="text-black dark:text-white font-extrabold text-2xl">
         MCP
-        <span className="text-primary">_</span>
+        <span className="text-secondary">_</span>
         </span>
     </Link>
   );
