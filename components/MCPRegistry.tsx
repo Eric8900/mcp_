@@ -17,21 +17,23 @@ export default function MCPRegistry() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const fetchServers = useCallback(async (pageNum: number, searchTerm = "", category = "All servers") => {
+  const fetchServers = useCallback(async (pageNum: number, searchTerm = "", category = "All servers", reset = false) => {
     setLoading(true);
     const fetchedServers = await getNextServers(pageNum, searchTerm, category);
-    if (pageNum === 0) {
+
+    if (reset) {
       setServers(fetchedServers);
     } else {
       setServers(prev => [...prev, ...fetchedServers]);
     }
-    setHasMore(fetchedServers.length > 0);
+
+    setHasMore(fetchedServers.length > 0); 
     setLoading(false);
   }, []);  
 
   useEffect(() => {
-    fetchServers(0, searchQuery, selectedCategory);
-    setPage(0);
+    setPage(0); 
+    fetchServers(0, searchQuery, selectedCategory, true); 
   }, [searchQuery, selectedCategory, fetchServers]);  
 
   useEffect(() => {
@@ -57,9 +59,9 @@ export default function MCPRegistry() {
 
   useEffect(() => {
     if (page > 0) {
-      fetchServers(page);
+      fetchServers(page, searchQuery, selectedCategory);
     }
-  }, [page, fetchServers]);
+  }, [page, fetchServers, searchQuery, selectedCategory]);
 
   return (
     <div className="flex flex-col sm:flex-row min-h-screen p-6 gap-6">
@@ -70,7 +72,7 @@ export default function MCPRegistry() {
       <div className="flex-1">
         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <CardGrid cards={servers} loading={loading}/>
-        {!hasMore && <div className="text-center py-4">You&apos;ve reached the end!</div>}
+        {!hasMore && <div className="text-center py-4">You&apos;ve reached the end! <b>More to come soon.</b></div>}
       </div>
     </div>
   );
